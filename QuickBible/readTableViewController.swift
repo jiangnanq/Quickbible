@@ -9,6 +9,7 @@ import UIKit
 
 class verseCell: UITableViewCell {
     @IBOutlet weak var verseLabel: UILabel!
+    @IBOutlet weak var refNoLabel: UILabel!
 }
 
 class readTableViewController: UITableViewController {
@@ -29,6 +30,8 @@ class readTableViewController: UITableViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
         swipeRight.direction = .right
         self.view.addGestureRecognizer(swipeRight)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
 
 
         // Uncomment the following line to preserve selection between presentations
@@ -60,9 +63,10 @@ class readTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! verseCell
-        cell.verseLabel.text = chapter[indexPath.row].textWithNumber
+        let onet = chapter[indexPath.row]
+        cell.verseLabel.text = onet.textWithNumber
+        cell.refNoLabel.text = "\(onet.referenceNo)"
         // Configure the cell...
-
         return cell
     }
     
@@ -126,5 +130,4 @@ class readTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

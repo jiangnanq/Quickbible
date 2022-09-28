@@ -9,6 +9,11 @@ import Foundation
 
 let db = SQLiteDB.shared
 
+struct Book {
+    var Name: String
+    var BookId: Int
+}
+
 struct Verse {
     var id: Int
     var Book: Int
@@ -25,6 +30,11 @@ struct Verse {
     }
     var fullText: String {
         "\(bookNameChn) \(Chapter):\(Verse) \(Text)"
+    }
+    
+    var referenceNo: Int {
+        let sql = "select count(*) from cross_reference where vid=\(id)"
+        return db.query(sql: sql).first!["count(*)"] as! Int
     }
     
     func cross_ref() -> [VerseRange] {
@@ -68,6 +78,10 @@ class VerseRange {
         })
     }
     
+    init(oneverse: Verse) {
+        verses = [oneverse]
+    }
+    
     func title() -> String {
         guard !verses.isEmpty else {return ""}
         let v1 = verses.first!
@@ -93,10 +107,17 @@ class VerseRange {
 
 class DataManager {
     static let shareInstance = DataManager()
+    var Books: [Book] = []
     
     init() {
         let path = Bundle.main.path(forResource: "bible_chn", ofType: "db")
         db.open(dbPath: path!, copyFile: true)
+        let sql = "select SN, FullName from BibleID"
+        let r = db.query(sql: sql)
+        Books = r.map({ oneB in
+            Book(Name: oneB["FullName"] as! String,
+                 BookId: oneB["SN"] as! Int)
+        })
     }
     
     func randomVerse() -> Verse {
@@ -107,11 +128,7 @@ class DataManager {
     
     func currentChapter(oneverse: Verse) -> [Verse] {
         var chapter:[Verse] = []
-        var sql = "select * from t_chn order by random() limit 1"
-        let r = db.query(sql: sql).first!
-        let b = r["b"] as! Int
-        let c = r["c"] as! Int
-        sql = "select * from t_chn where b=\(b) and c=\(c) order by id"
+        let sql = "select * from t_chn where b=\(oneverse.Book) and c=\(oneverse.Chapter) order by id"
         let r1 = db.query(sql: sql)
         chapter = r1.map({ oner in
             Verse(r: oner)
@@ -120,12 +137,13 @@ class DataManager {
     }
     
     func nextChapter(oneverse: Verse) -> [Verse] {
-        let sql = "select * from t_chn where id>\(oneverse.id) limit 1"
+        let sql = "select * from t_chn where id>\(oneverse.id) order by id asc limit 1"
+        let t = Verse(r: db.query(sql: sql).first!)
         return currentChapter(oneverse: Verse(r: db.query(sql: sql).first!))
     }
     
     func previousChapter(oneverse: Verse) -> [Verse] {
-        let sql = "select * from t_chn where id<\(oneverse.id) limit 1"
+        let sql = "select * from t_chn where id<\(oneverse.id) order by id desc limit 1"
         return currentChapter(oneverse: Verse(r: db.query(sql: sql).first!))
     }
     
