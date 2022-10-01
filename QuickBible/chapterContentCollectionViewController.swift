@@ -1,88 +1,58 @@
 //
-//  contentCollectionViewController.swift
+//  chapterContentCollectionViewController.swift
 //  QuickBible
 //
-//  Created by Joshua Jiang on 28/9/22.
+//  Created by Joshua Jiang on 30/9/22.
 //
 
 import UIKit
 
-class BooknameCell: UICollectionViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-}
+private let reuseIdentifier = "Cell"
 
-private let reuseIdentifier = "bookname"
-
-class contentCollectionViewController: UICollectionViewController {
-    let b = DataManager.shareInstance.bible
+class chapterContentCollectionViewController: UICollectionViewController {
+    var oneBook: Book?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Content"
-        setLayout()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
-    
-    func setLayout() {
-       let screenSize = UIScreen.main.bounds
-       let screenWidth = screenSize.width
-       let screenHeight = screenSize.height
-       let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-       layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-       layout.sectionHeadersPinToVisibleBounds = true
-       layout.itemSize = CGSize(width: screenWidth/4, height: screenHeight/8)
-       layout.minimumInteritemSpacing = 0
-       layout.minimumLineSpacing = 5
-       collectionView.collectionViewLayout = layout
-    }
 
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let c = collectionView.indexPathsForSelectedItems?.first {
-            let book = b.sections[c.section][c.row]
-            let vc = segue.destination as! readTableViewController
-            vc.chapter = book.FirstChapter
-        }
-        
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
+    */
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return b.sections.count
+        return 0
     }
+
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return b.sections[section].count
+        return 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BooknameCell
-       let onebook = b.sections[indexPath.section][indexPath.row]
-       cell.nameLabel.text = "\(onebook.Name)"
-        // Configure the cell
-        return cell
-    }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath) as?  sectionHeader{
-            sectionHeader.sectionLabel.text = "摩西五经"
-            return sectionHeader
-        }
-        return UICollectionReusableView()
+        // Configure the cell
+    
+        return cell
     }
 
     // MARK: UICollectionViewDelegate
@@ -115,4 +85,5 @@ class contentCollectionViewController: UICollectionViewController {
     
     }
     */
+
 }

@@ -12,6 +12,71 @@ let db = SQLiteDB.shared
 struct Book {
     var Name: String
     var BookId: Int
+    
+    var FirstChapter: [Verse] {
+        get {
+            let sql = "select * from t_chn where b=\(BookId) and c=1 order by id"
+            return db.query(sql: sql).map { oneverse in
+                Verse(r: oneverse)
+            }
+        }
+    }
+    
+    var chapter: Int {
+        get {
+            let sql = "select count(distinct(c)) from t_chn where b=\(BookId)"
+            let d = db.query(sql: sql).first!
+            return db.query(sql: sql).first!["count(distinct(c))"] as! Int
+        }
+    }
+    
+    init(oneVerse: Verse) {
+        var sql = "select b from t_chn where id=\(oneVerse.id)"
+        BookId = db.query(sql: sql).first!["b"] as! Int
+        sql = "select FullName from BibleID where SN=\(BookId)"
+        Name = db.query(sql: sql).first!["FullName"] as! String
+    }
+    
+    init(name: String, bookid: Int) {
+        Name = name
+        BookId = bookid
+    }
+}
+
+struct Bible {
+    var books:[Book]
+    var ot:[Book] {
+        get {
+            Array(books[0..<39])
+        }
+    }
+    var nt:[Book] {
+        get {
+            Array(books[39..<66])
+        }
+    }
+    
+    var sections:[[Book]]
+    
+    init() {
+        let sql = "select SN, FullName from BibleID"
+        let r = db.query(sql: sql)
+        books = r.map({ oneB in
+            Book(name: oneB["FullName"] as! String,
+                 bookid: oneB["SN"] as! Int)
+        })
+        sections = [Array(books[0..<5]),  // 摩西五经
+                    Array(books[5..<17]), // 历史书
+                    Array(books[17..<22]), // 诗歌、智慧书
+                    Array(books[22..<27]), // 大先知书
+                    Array(books[27..<39]), // 小先知书
+                    Array(books[39..<43]), // 福音书
+                    Array(books[43..<44]), // 教会历史
+                    Array(books[44..<57]), // 保罗书信
+                    Array(books[57..<65]), // 其它书信
+                    Array(books[65..<66])  // 启示录
+        ]
+    }
 }
 
 struct Verse {
@@ -107,17 +172,12 @@ class VerseRange {
 
 class DataManager {
     static let shareInstance = DataManager()
-    var Books: [Book] = []
+    var bible: Bible
     
     init() {
         let path = Bundle.main.path(forResource: "bible_chn", ofType: "db")
         db.open(dbPath: path!, copyFile: true)
-        let sql = "select SN, FullName from BibleID"
-        let r = db.query(sql: sql)
-        Books = r.map({ oneB in
-            Book(Name: oneB["FullName"] as! String,
-                 BookId: oneB["SN"] as! Int)
-        })
+        bible = Bible()
     }
     
     func randomVerse() -> Verse {

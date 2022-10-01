@@ -40,8 +40,10 @@ class referenceTableViewController: UITableViewController {
         cell.textLabel?.text = "\(onet.title()) \(onet.fullText())"
         if indexPath.row == 0 {
             cell.textLabel?.textColor = UIColor.red
+            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         } else {
             cell.textLabel?.textColor = UIColor.black
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
         }
 
         // Configure the cell...

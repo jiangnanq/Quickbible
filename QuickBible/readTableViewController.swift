@@ -17,13 +17,15 @@ class readTableViewController: UITableViewController {
     var chapter:[Verse] = [] {
         didSet {
             self.tableView.reloadData()
+            title = "\(chapter.first!.bookNameChn) \(chapter.first!.Chapter)"
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Read Bible"
-        chapter = d.currentChapter(oneverse: d.randomVerse())
+        title = "\(chapter.first!.bookNameChn) \(chapter.first!.Chapter)"
+        let barbutton = UIBarButtonItem(title: "目录", style: .plain, target: self, action: #selector(selectchapter))
+        navigationItem.rightBarButtonItem = barbutton
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
@@ -39,6 +41,13 @@ class readTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func selectchapter() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "bookcontent") as! chapterContentCollectionViewController
+        vc.oneBook = Book(oneVerse: chapter.first!)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: - Table view data source
