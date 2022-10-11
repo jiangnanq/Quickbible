@@ -7,10 +7,15 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "chapter"
+
+class chapterTitleCell: UICollectionViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+}
 
 class chapterContentCollectionViewController: UICollectionViewController {
     var oneBook: Book?
+    var readbibledelegate: readBibleDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +24,7 @@ class chapterContentCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -38,21 +43,27 @@ class chapterContentCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return oneBook!.chapterNumber
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! chapterTitleCell
+        cell.titleLabel.text = "\(String(indexPath.row + 1))"
         // Configure the cell
-    
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row + 1
+        let v = oneBook?.oneChapter(chapterNumber: index)
+        readbibledelegate?.chapterDidUpdate(verses: v!)
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: UICollectionViewDelegate

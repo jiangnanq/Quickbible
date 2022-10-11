@@ -12,6 +12,10 @@ class verseCell: UITableViewCell {
     @IBOutlet weak var refNoLabel: UILabel!
 }
 
+protocol readBibleDelegate {
+    func chapterDidUpdate(verses: [Verse])
+}
+
 class readTableViewController: UITableViewController {
     let d = DataManager.shareInstance
     var chapter:[Verse] = [] {
@@ -47,6 +51,7 @@ class readTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "bookcontent") as! chapterContentCollectionViewController
         vc.oneBook = Book(oneVerse: chapter.first!)
+        vc.readbibledelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -139,4 +144,10 @@ class readTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+extension readTableViewController: readBibleDelegate {
+    func chapterDidUpdate(verses: [Verse]) {
+        chapter = verses
+    }
 }
