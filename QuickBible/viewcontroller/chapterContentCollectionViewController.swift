@@ -19,6 +19,7 @@ class chapterContentCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLayout()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -27,6 +28,19 @@ class chapterContentCollectionViewController: UICollectionViewController {
 //        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+    }
+    
+    func setLayout() {
+       let screenSize = UIScreen.main.bounds
+       let screenWidth = screenSize.width
+       let screenHeight = screenSize.height
+       let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+       layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+       layout.sectionHeadersPinToVisibleBounds = true
+       layout.itemSize = CGSize(width: screenWidth/8, height: screenHeight/12)
+       layout.minimumInteritemSpacing = 0
+       layout.minimumLineSpacing = 5
+       collectionView.collectionViewLayout = layout
     }
 
     /*

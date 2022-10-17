@@ -137,6 +137,29 @@ struct Verse {
         self.Verse = r["v"] as! Int
         self.Text = r["t"] as! String
     }
+    
+    func isNext(oneverse: Verse) -> Bool {
+        if id == 66022021 {return false}
+        let sql = "select id from t_chn where id>\(id) limit 1"
+        if oneverse.id == db.query(sql: sql)[0]["id"] as! Int {
+            return true
+        }
+        return false
+    }
+    
+    func isPrevious(oneverse: Verse) -> Bool {
+        if id == 1001001 {return false}
+        let sql = "select id from t_chn where id<\(id) order by id desc limit 1"
+        if oneverse.id == db.query(sql: sql)[0]["id"] as! Int {
+            return true
+        }
+        return false
+    }
+    
+    func isFavorite() -> Bool {
+        let f = FavoriteVerse.shareInstance
+        return f.myVerses.contains(id)
+    }
 }
 
 class VerseRange {

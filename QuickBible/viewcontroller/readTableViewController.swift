@@ -79,7 +79,7 @@ class readTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! verseCell
         let onet = chapter[indexPath.row]
         cell.verseLabel.text = onet.textWithNumber
-        cell.refNoLabel.text = "\(onet.referenceNo)"
+        cell.refNoLabel.text = onet.isFavorite() ? "❤️ \(onet.referenceNo)" : "\(onet.referenceNo)"
         // Configure the cell...
         return cell
     }
@@ -91,6 +91,18 @@ class readTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let oneverse = chapter[indexPath.row]
+        let title = oneverse.isFavorite() ? "Unfavorite" : "Favorite"
+        let ac = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let aa1 = UIAlertAction(title: title, style: .default) { (_) in
+            let f = FavoriteVerse.shareInstance
+            f.addVerse(oneverse: oneverse)
+            tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        ac.addAction(aa1)
+        ac.addAction(cancelAction)
+        present(ac, animated: true)
 //        print(chapter[indexPath.row].Text)
 //        let onev = chapter[indexPath.row]
 //        let oned = d.cross_ref(oneverse:onev)
