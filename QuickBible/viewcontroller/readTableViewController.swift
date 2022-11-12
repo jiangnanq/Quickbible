@@ -91,18 +91,26 @@ class readTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let oneverse = chapter[indexPath.row]
-        let title = oneverse.isFavorite() ? "Unfavorite" : "Favorite"
-        let ac = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        let aa1 = UIAlertAction(title: title, style: .default) { (_) in
-            let f = FavoriteVerse.shareInstance
-            f.addVerse(oneverse: oneverse)
-            tableView.reloadRows(at: [indexPath], with: .fade)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        ac.addAction(aa1)
-        ac.addAction(cancelAction)
-        present(ac, animated: true)
+//        let oneverse = chapter[indexPath.row]
+//        let title = oneverse.isFavorite() ? "Unfavorite" : "Favorite"
+//        let ac = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+//        let aa1 = UIAlertAction(title: title, style: .default) { (_) in
+//            let f = FavoriteVerse.shareInstance
+//            f.addVerse(oneverse: oneverse)
+//            tableView.reloadRows(at: [indexPath], with: .fade)
+//        }
+//        
+//        let aa2 = UIAlertAction(title: "Details", style: .default) { (_) in
+//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "reference") as! referenceTableViewController
+//            vc.oneverser = oneverse
+//            self.navigationController?.pushViewController(vc, animated:true)
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//        ac.addAction(aa1)
+//        ac.addAction(aa2)
+//        ac.addAction(cancelAction)
+//        present(ac, animated: true)
 //        print(chapter[indexPath.row].Text)
 //        let onev = chapter[indexPath.row]
 //        let oned = d.cross_ref(oneverse:onev)

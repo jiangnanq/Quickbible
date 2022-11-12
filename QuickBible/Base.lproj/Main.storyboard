@@ -102,21 +102,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oFz-wk-75T">
-                                <rect key="frame" x="130" y="91" width="131" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="iAW-Ar-ngI"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                                <connections>
-                                    <action selector="selectType" destination="gwU-rK-lfZ" eventType="valueChanged" id="UPs-wX-JyW"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RhT-uS-rcS">
-                                <rect key="frame" x="16" y="146" width="358" height="599"/>
+                                <rect key="frame" x="16" y="69" width="358" height="676"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="verse" rowHeight="102" id="yf9-7R-6yL" customClass="favoriteVerseCell" customModule="QuickBible" customModuleProvider="target">
@@ -150,18 +137,14 @@
                         <viewLayoutGuide key="safeArea" id="MHz-2V-0cm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="oFz-wk-75T" firstAttribute="centerX" secondItem="RhT-uS-rcS" secondAttribute="centerX" id="HjX-qW-MmU"/>
+                            <constraint firstItem="RhT-uS-rcS" firstAttribute="top" secondItem="t5k-E3-giS" secondAttribute="topMargin" constant="-22" id="PEu-4H-Jex"/>
                             <constraint firstItem="RhT-uS-rcS" firstAttribute="trailing" secondItem="t5k-E3-giS" secondAttribute="trailingMargin" id="Y7R-HH-EAI"/>
-                            <constraint firstItem="oFz-wk-75T" firstAttribute="top" secondItem="MHz-2V-0cm" secondAttribute="top" id="eIO-Ju-OoP"/>
-                            <constraint firstItem="oFz-wk-75T" firstAttribute="leading" secondItem="MHz-2V-0cm" secondAttribute="leading" constant="130" id="ibg-Gl-O5d"/>
-                            <constraint firstItem="RhT-uS-rcS" firstAttribute="top" secondItem="oFz-wk-75T" secondAttribute="bottom" constant="25" id="ooA-T6-RLv"/>
                             <constraint firstItem="RhT-uS-rcS" firstAttribute="leading" secondItem="t5k-E3-giS" secondAttribute="leadingMargin" id="pwL-gc-XmH"/>
                             <constraint firstItem="MHz-2V-0cm" firstAttribute="bottom" secondItem="RhT-uS-rcS" secondAttribute="bottom" constant="16" id="vCc-3x-bre"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Lih-bW-ZGv"/>
                     <connections>
-                        <outlet property="selectSeg" destination="oFz-wk-75T" id="sBy-Tj-8Yg"/>
                         <outlet property="verseTableView" destination="RhT-uS-rcS" id="PqL-5d-bxU"/>
                     </connections>
                 </viewController>
@@ -220,6 +203,7 @@
                                 <connections>
                                     <outlet property="refNoLabel" destination="q2e-B4-VC0" id="9b9-4I-uD4"/>
                                     <outlet property="verseLabel" destination="tgG-SR-aZF" id="osB-II-m0q"/>
+                                    <segue destination="YHf-3m-GQV" kind="show" id="muQ-hZ-df3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -236,7 +220,7 @@
         <!--Reference Table View Controller-->
         <scene sceneID="0rw-h9-Sq9">
             <objects>
-                <tableViewController id="YHf-3m-GQV" customClass="referenceTableViewController" customModule="QuickBible" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="reference" id="YHf-3m-GQV" customClass="referenceTableViewController" customModule="QuickBible" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ZOc-Dv-hnv">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

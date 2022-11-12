@@ -12,7 +12,6 @@ class favoriteVerseCell: UITableViewCell {
 }
 
 class favoriteViewController: UIViewController {
-    @IBOutlet weak var selectSeg: UISegmentedControl!
     @IBOutlet weak var verseTableView: UITableView!
     let v = FavoriteVerse.shareInstance
 

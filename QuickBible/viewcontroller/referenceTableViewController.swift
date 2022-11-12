@@ -14,12 +14,23 @@ class referenceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         crossRef = [VerseRange(oneverse: oneverser!)] + oneverser!.cross_ref()
+        let barbutton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(addfavorite))
+        navigationItem.rightBarButtonItem = barbutton
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func addfavorite() {
+        let f = FavoriteVerse.shareInstance
+        f.addVerse(oneverse: oneverser!)
+        let ac = UIAlertController(title: "Sucessful", message: "Added to favorite", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        ac.addAction(action)
+        self.present(ac, animated: true)
     }
 
     // MARK: - Table view data source
