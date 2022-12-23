@@ -22,6 +22,7 @@ class readTableViewController: UITableViewController {
         didSet {
             self.tableView.reloadData()
             title = "\(chapter.first!.bookNameChn) \(chapter.first!.Chapter)"
+            HistoryVerse.shareInstance.saveVerse(v: chapter.first!)
         }
     }
 
@@ -38,13 +39,21 @@ class readTableViewController: UITableViewController {
         self.view.addGestureRecognizer(swipeRight)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
-
+        NotificationCenter.default.addObserver(self, selector: #selector(updateVerse), name: updateVerseView, object: nil)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func updateVerse(notification: NSNotification) {
+        if let v = notification.userInfo?["verse"] as? Verse {
+            if let i = chapter.firstIndex(of: v) {
+                self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+            }
+        }
     }
     
     @objc func selectchapter() {
@@ -91,32 +100,7 @@ class readTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let oneverse = chapter[indexPath.row]
-//        let title = oneverse.isFavorite() ? "Unfavorite" : "Favorite"
-//        let ac = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-//        let aa1 = UIAlertAction(title: title, style: .default) { (_) in
-//            let f = FavoriteVerse.shareInstance
-//            f.addVerse(oneverse: oneverse)
-//            tableView.reloadRows(at: [indexPath], with: .fade)
-//        }
-//        
-//        let aa2 = UIAlertAction(title: "Details", style: .default) { (_) in
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "reference") as! referenceTableViewController
-//            vc.oneverser = oneverse
-//            self.navigationController?.pushViewController(vc, animated:true)
-//        }
-//        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//        ac.addAction(aa1)
-//        ac.addAction(aa2)
-//        ac.addAction(cancelAction)
-//        present(ac, animated: true)
-//        print(chapter[indexPath.row].Text)
-//        let onev = chapter[indexPath.row]
-//        let oned = d.cross_ref(oneverse:onev)
-//        for v in oned{
-//            print("\(v.title()) \(v.fullText())")
-//        }
+
     }
 
     

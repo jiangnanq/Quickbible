@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let _ = DataManager.shareInstance
         let _ = FavoriteVerse.shareInstance
+        let _ = HistoryVerse.shareInstance
         return true
     }
 

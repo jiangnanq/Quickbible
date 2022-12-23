@@ -20,6 +20,24 @@ struct Book {
         }
     }
     
+    var allChapter: Int {
+        get {
+            let sql = "select count(distinct(c)) from t_chn where b=\(BookId)"
+            let c = db.query(sql: sql)[0]["count(distinct(c))"] as! Int
+            return c
+        }
+    }
+    
+    var HistoryChapter: [Verse] {
+        get {
+            let chapter = HistoryVerse.shareInstance.historyVerse[BookId - 1]
+            let sql = "select * from t_chn where b=\(BookId) and c=\(chapter) order by id"
+            return db.query(sql: sql).map { oneverse in
+                Verse(r: oneverse)
+            }
+        }
+    }
+    
     var chapterNumber: Int {
         get {
             let sql = "select count(distinct(c)) from t_chn where b=\(BookId)"
@@ -84,7 +102,7 @@ struct Bible {
     }
 }
 
-struct Verse {
+struct Verse: Equatable {
     var id: Int
     var Book: Int
     var Chapter: Int
@@ -138,6 +156,11 @@ struct Verse {
         self.Text = r["t"] as! String
     }
     
+    func getChapter() -> [Verse] {
+        let onebook = QuickBible.Book(oneVerse: self)
+        return onebook.oneChapter(chapterNumber: self.Chapter)
+    }
+    
     func isNext(oneverse: Verse) -> Bool {
         if id == 66022021 {return false}
         let sql = "select id from t_chn where id>\(id) limit 1"
@@ -159,6 +182,10 @@ struct Verse {
     func isFavorite() -> Bool {
         let f = FavoriteVerse.shareInstance
         return f.myVerses.contains(id)
+    }
+    
+    static func == (lhs: Verse, rhs: Verse) -> Bool {
+        lhs.id  == rhs.id
     }
 }
 

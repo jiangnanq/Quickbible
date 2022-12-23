@@ -22,6 +22,7 @@
 		F9146B7328C1F08400FA7803 /* SQLTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9146B7228C1F08400FA7803 /* SQLTable.swift */; };
 		F9146B7528C1F16B00FA7803 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9146B7428C1F16B00FA7803 /* DataManager.swift */; };
 		F9146B7628C1F25200FA7803 /* bible_chn.db in Resources */ = {isa = PBXBuildFile; fileRef = F9146B6F28C1F03F00FA7803 /* bible_chn.db */; };
+		F997895B2954418500A21680 /* HistoryVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F997895A2954418500A21680 /* HistoryVerse.swift */; };
 		F9B10EBC28F1917B00490D15 /* favoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */; };
 		F9B10EBE28F192A200490D15 /* BibleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBD28F192A200490D15 /* BibleData.swift */; };
 		F9B10EC028F8EC7300490D15 /* FavoriteVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBF28F8EC7300490D15 /* FavoriteVerse.swift */; };
@@ -68,6 +69,7 @@
 		F9146B7028C1F06900FA7803 /* CloudDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDB.swift; sourceTree = "<group>"; };
 		F9146B7228C1F08400FA7803 /* SQLTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLTable.swift; sourceTree = "<group>"; };
 		F9146B7428C1F16B00FA7803 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		F997895A2954418500A21680 /* HistoryVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVerse.swift; sourceTree = "<group>"; };
 		F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favoriteViewController.swift; sourceTree = "<group>"; };
 		F9B10EBD28F192A200490D15 /* BibleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleData.swift; sourceTree = "<group>"; };
 		F9B10EBF28F8EC7300490D15 /* FavoriteVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerse.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				F9146B7428C1F16B00FA7803 /* DataManager.swift */,
 				F9B10EBF28F8EC7300490D15 /* FavoriteVerse.swift */,
+				F997895A2954418500A21680 /* HistoryVerse.swift */,
 				F9B10EBD28F192A200490D15 /* BibleData.swift */,
 			);
 			path = data;
@@ -326,6 +329,7 @@
 				F909693D28D17A2700D8005C /* readTableViewController.swift in Sources */,
 				F9146B7328C1F08400FA7803 /* SQLTable.swift in Sources */,
 				F9146B6E28C1F00300FA7803 /* SQLiteBase.swift in Sources */,
+				F997895B2954418500A21680 /* HistoryVerse.swift in Sources */,
 				F9DC46CB28E3F30C003C3316 /* contentCollectionViewController.swift in Sources */,
 				F9146B6D28C1F00300FA7803 /* SQLiteDB.swift in Sources */,
 				F9DC46CD28E66F4E003C3316 /* sectionCollectionReusableView.swift in Sources */,
@@ -516,11 +520,11 @@
 				DEVELOPMENT_TEAM = W6UGG2DPWC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuickBible/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "速查圣经";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,11 +548,11 @@
 				DEVELOPMENT_TEAM = W6UGG2DPWC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuickBible/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "速查圣经";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -9,6 +9,7 @@ import UIKit
 
 class BooknameCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var historyLabel: UILabel!
 }
 
 private let reuseIdentifier = "bookname"
@@ -42,6 +43,10 @@ class contentCollectionViewController: UICollectionViewController {
        layout.minimumLineSpacing = 5
        collectionView.collectionViewLayout = layout
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
 
     // MARK: - Navigation
 
@@ -50,7 +55,7 @@ class contentCollectionViewController: UICollectionViewController {
         if let c = collectionView.indexPathsForSelectedItems?.first {
             let book = b.sections[c.section][c.row]
             let vc = segue.destination as! readTableViewController
-            vc.chapter = book.FirstChapter
+            vc.chapter = book.HistoryChapter
         }
         
         // Get the new view controller using [segue destinationViewController].
@@ -70,9 +75,11 @@ class contentCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BooknameCell
-       let onebook = b.sections[indexPath.section][indexPath.row]
-       cell.nameLabel.text = "\(onebook.Name)"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BooknameCell
+        let onebook = b.sections[indexPath.section][indexPath.row]
+        cell.nameLabel.text = "\(onebook.Name)"
+        let c = HistoryVerse.shareInstance.historyVerse[onebook.BookId - 1]
+        cell.historyLabel.text = "\(c) of \(onebook.allChapter)"
         // Configure the cell
         return cell
     }

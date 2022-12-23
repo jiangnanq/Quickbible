@@ -17,15 +17,21 @@ class favoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "My favorite"
         verseTableView.delegate = self
         verseTableView.dataSource = self
+        NotificationCenter.default.addObserver(self, selector: #selector(updateview), name: updateFavoriteView, object: nil)
 
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        verseTableView.reloadData()
+    @objc func updateview() {
+        self.verseTableView.reloadData()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        verseTableView.reloadData()
+//    }
     
     @IBAction func selectType() {
         print("Select segment")
@@ -57,5 +63,15 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
         let oneverse = Verse(rid: v.myVerses[indexPath.row])
         cell.verseLabel.text = oneverse.fullText
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let oneverse = Verse(rid: v.myVerses[indexPath.row])
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "readbible") as! readTableViewController
+        vc.chapter = oneverse.getChapter()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
 }

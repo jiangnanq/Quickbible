@@ -37,6 +37,21 @@ class FavoriteVerse {
         }
     }
     
+    func toggleFavorite(oneverse: Verse) {
+        if !myVerses.contains(oneverse.id) {
+            var m = myVerses
+            m.append(oneverse.id)
+            myVerses = m.sorted(by: <)
+        } else {
+            var m = myVerses
+            m.remove(at: m.firstIndex(of: oneverse.id)!)
+            myVerses = m.sorted(by: <)
+        }
+        let userinfo = ["verse": oneverse]
+        NotificationCenter.default.post(name: updateVerseView, object: nil, userInfo: userinfo)
+        NotificationCenter.default.post(name: updateFavoriteView, object: nil)
+    }
+    
     func deleteVerse(oneverse: Verse) {
         if myVerses.contains(oneverse.id) {
             myVerses.remove(at: myVerses.firstIndex(of: oneverse.id)!)

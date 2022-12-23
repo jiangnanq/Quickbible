@@ -7,6 +7,10 @@
 
 import Foundation
 
+let updateBibleView = Notification.Name("updateBibleview")
+let updateVerseView = Notification.Name("updateVerse")
+let updateFavoriteView = Notification.Name("updateFavorite")
+
 let db = SQLiteDB.shared
 
 class DataManager {

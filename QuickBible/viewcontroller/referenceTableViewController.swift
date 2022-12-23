@@ -14,7 +14,8 @@ class referenceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         crossRef = [VerseRange(oneverse: oneverser!)] + oneverser!.cross_ref()
-        let barbutton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(addfavorite))
+        let title = oneverser!.isFavorite() ? "Unfavorite" : " Favorite"
+        let barbutton = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(togglefavorite))
         navigationItem.rightBarButtonItem = barbutton
 
         // Uncomment the following line to preserve selection between presentations
@@ -24,10 +25,10 @@ class referenceTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    @objc func addfavorite() {
+    @objc func togglefavorite() {
         let f = FavoriteVerse.shareInstance
-        f.addVerse(oneverse: oneverser!)
-        let ac = UIAlertController(title: "Sucessful", message: "Added to favorite", preferredStyle: .alert)
+        f.toggleFavorite(oneverse: oneverser!)
+        let ac = UIAlertController(title: "Sucessful", message: "Done", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default)
         ac.addAction(action)
         self.present(ac, animated: true)
