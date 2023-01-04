@@ -57,4 +57,38 @@ class FavoriteVerse {
             myVerses.remove(at: myVerses.firstIndex(of: oneverse.id)!)
         }
     }
+    
+    func verseInRange() -> [VerseRange]{
+        func isSameRange(v1id: Int, v2id: Int) -> Bool{
+           if v1id == 66022021 { return false}
+           let sql = "select id from t_chn where id>\(v1id) limit 1"
+           let r = db.query(sql: sql).first!
+           if r["id"] as! Int == v2id { return true}
+           return false
+        }
+        
+        var myVerseInRange: [VerseRange] = []
+        var ids: [Int] = []
+        for (id, oneverse) in myVerses.enumerated() {
+            if id == myVerses.endIndex - 1 && !ids.contains(id){
+                myVerseInRange.append(VerseRange(startid: oneverse, endid: oneverse))
+                break
+            }
+            if ids.contains(id) {
+                continue
+            } else {
+                var currentidx = id
+                for _ in id...myVerses.endIndex - 2 {
+                    if isSameRange(v1id: myVerses[currentidx], v2id: myVerses[currentidx + 1]) {
+                        currentidx += 1
+                        ids.append(currentidx)
+                    } else {
+                        break
+                    }
+                }
+                myVerseInRange.append(VerseRange(startid: myVerses[id], endid: myVerses[currentidx]))
+            }
+        }
+        return myVerseInRange
+    }
 }

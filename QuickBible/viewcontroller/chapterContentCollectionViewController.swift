@@ -69,6 +69,8 @@ class chapterContentCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! chapterTitleCell
         cell.titleLabel.text = "\(String(indexPath.row + 1))"
+        cell.titleLabel.layer.cornerRadius = cell.titleLabel.frame.size.height / 2.0
+        cell.titleLabel.layer.masksToBounds = true
         // Configure the cell
         return cell
     }

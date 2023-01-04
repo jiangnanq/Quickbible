@@ -1,22 +1,33 @@
 //
-//  referenceTableViewController.swift
+//  searchTableViewController.swift
 //  QuickBible
 //
-//  Created by Joshua Jiang on 20/9/22.
+//  Created by Joshua Jiang on 3/1/23.
 //
 
 import UIKit
 
-class referenceTableViewController: UITableViewController {
-    var oneverser:Verse?
-    var crossRef: [VerseRange] = []
+class searchResultCell: UITableViewCell {
+    @IBOutlet weak var searchResultLabel: UILabel!
+}
 
+class searchTableViewController: UITableViewController, UISearchResultsUpdating {
+
+    let searchController = UISearchController(searchResultsController: nil)
+    var searchResult:[Verse] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        crossRef = [VerseRange(oneverse: oneverser!)] + oneverser!.cross_ref()
-        let title = oneverser!.isFavorite() ? "不收藏" : "收藏"
-        let barbutton = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(togglefavorite))
-        navigationItem.rightBarButtonItem = barbutton
+        self.title = "搜索"
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "搜索圣经"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,14 +36,17 @@ class referenceTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    @objc func togglefavorite() {
-        let f = FavoriteVerse.shareInstance
-        f.toggleFavorite(oneverse: oneverser!)
-        let msg = oneverser!.isFavorite() ? "成功收藏" : "已经移除"
-        let ac = UIAlertController(title: "成功", message: msg, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default)
-        ac.addAction(action)
-        self.present(ac, animated: true)
+    func updateSearchResults(for searchController: UISearchController) {
+        if let t = searchController.searchBar.text {
+            if !t.isEmpty {
+               let sql = "select * from t_chn where t like '%\(t)%' limit 40"
+               let r = db.query(sql: sql).map { oneverse in
+                    Verse(r: oneverse)
+                }
+                self.searchResult = r
+//                self.searchResult = r.sorted{$0.referenceNo > $1.referenceNo}
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -44,21 +58,13 @@ class referenceTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return crossRef.count
+        return searchResult.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reference", for: indexPath)
-        let onet = crossRef[indexPath.row]
-        cell.textLabel?.text = "\(onet.title()) \(onet.fullText())"
-        if indexPath.row == 0 {
-            cell.textLabel?.textColor = UIColor.red
-            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        } else {
-            cell.textLabel?.textColor = UIColor.black
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-        }
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchresult", for: indexPath) as! searchResultCell
+        let t = searchResult[indexPath.row]
+        cell.searchResultLabel.text = t.fullText
         // Configure the cell...
 
         return cell
@@ -99,14 +105,17 @@ class referenceTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let v = tableView.indexPathForSelectedRow{
+            let v1 = searchResult[v.row]
+            let vc = segue.destination as! readTableViewController
+            vc.chapter = v1.getChapter()
+        }
     }
-    */
 
 }

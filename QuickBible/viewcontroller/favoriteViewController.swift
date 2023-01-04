@@ -13,11 +13,11 @@ class favoriteVerseCell: UITableViewCell {
 
 class favoriteViewController: UIViewController {
     @IBOutlet weak var verseTableView: UITableView!
-    let v = FavoriteVerse.shareInstance
+    var v = FavoriteVerse.shareInstance.verseInRange()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "My favorite"
+        self.title = "我的收藏"
         verseTableView.delegate = self
         verseTableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(updateview), name: updateFavoriteView, object: nil)
@@ -26,6 +26,7 @@ class favoriteViewController: UIViewController {
     }
     
     @objc func updateview() {
+        v = FavoriteVerse.shareInstance.verseInRange()
         self.verseTableView.reloadData()
     }
     
@@ -55,23 +56,36 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        v.myVerses.count
+        v.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! favoriteVerseCell
-        let oneverse = Verse(rid: v.myVerses[indexPath.row])
-        cell.verseLabel.text = oneverse.fullText
+//        let oneverse = Verse(rid: v.myVerses[indexPath.row])
+        let onev = v[indexPath.row]
+        cell.verseLabel.text = "\(onev.title()): \(onev.fullText())"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-        let oneverse = Verse(rid: v.myVerses[indexPath.row])
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "readbible") as! readTableViewController
-        vc.chapter = oneverse.getChapter()
-        navigationController?.pushViewController(vc, animated: true)
-        
+//        print(indexPath.row)
+        let alertcontroller = UIAlertController(title: "查看", message: "动作", preferredStyle: .actionSheet)
+        let viewAction = UIAlertAction(title: "查看经文", style: .default) { (_) -> Void in
+            let oneverse =  self.v[indexPath.row].verses.first!
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "readbible") as! readTableViewController
+            vc.chapter = oneverse.getChapter()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let shareAction = UIAlertAction(title: "分享", style: .default) { (_) -> Void in
+            let item = [self.v[indexPath.row].titleAndtext]
+            let ac = UIActivityViewController(activityItems: item, applicationActivities: nil)
+            self.present(ac, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alertcontroller.addAction(viewAction)
+        alertcontroller.addAction(shareAction)
+        alertcontroller.addAction(cancelAction)
+        present(alertcontroller, animated: true)
     }
 }

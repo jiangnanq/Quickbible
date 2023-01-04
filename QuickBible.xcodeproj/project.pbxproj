@@ -22,6 +22,12 @@
 		F9146B7328C1F08400FA7803 /* SQLTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9146B7228C1F08400FA7803 /* SQLTable.swift */; };
 		F9146B7528C1F16B00FA7803 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9146B7428C1F16B00FA7803 /* DataManager.swift */; };
 		F9146B7628C1F25200FA7803 /* bible_chn.db in Resources */ = {isa = PBXBuildFile; fileRef = F9146B6F28C1F03F00FA7803 /* bible_chn.db */; };
+		F92952062963F8C400650E07 /* searchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92952052963F8C400650E07 /* searchTableViewController.swift */; };
+		F991F83929565A5F004E2135 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F991F83829565A5F004E2135 /* IntentsUI.framework */; };
+		F991F83C29565A5F004E2135 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F991F83B29565A5F004E2135 /* IntentViewController.swift */; };
+		F991F83F29565A5F004E2135 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F991F83D29565A5F004E2135 /* MainInterface.storyboard */; };
+		F991F84329565A5F004E2135 /* bibleIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F991F83629565A5F004E2135 /* bibleIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F991F84929565A9E004E2135 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F991F84829565A9E004E2135 /* Intents.intentdefinition */; };
 		F997895B2954418500A21680 /* HistoryVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F997895A2954418500A21680 /* HistoryVerse.swift */; };
 		F9B10EBC28F1917B00490D15 /* favoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */; };
 		F9B10EBE28F192A200490D15 /* BibleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBD28F192A200490D15 /* BibleData.swift */; };
@@ -30,6 +36,7 @@
 		F9DC46CB28E3F30C003C3316 /* contentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DC46CA28E3F30C003C3316 /* contentCollectionViewController.swift */; };
 		F9DC46CD28E66F4E003C3316 /* sectionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DC46CC28E66F4E003C3316 /* sectionCollectionReusableView.swift */; };
 		F9DC46CF28E6C5E9003C3316 /* chapterContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DC46CE28E6C5E9003C3316 /* chapterContentCollectionViewController.swift */; };
+		F9F268EE295D19110068FE7E /* Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F268ED295D19110068FE7E /* Intent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +54,28 @@
 			remoteGlobalIDString = F9146B3628C1EA1100FA7803;
 			remoteInfo = QuickBible;
 		};
+		F991F84129565A5F004E2135 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9146B2F28C1EA1100FA7803 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F991F83529565A5F004E2135;
+			remoteInfo = bibleIntent;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F991F84729565A5F004E2135 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F991F84329565A5F004E2135 /* bibleIntent.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F909693C28D17A2700D8005C /* readTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = readTableViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +97,14 @@
 		F9146B7028C1F06900FA7803 /* CloudDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDB.swift; sourceTree = "<group>"; };
 		F9146B7228C1F08400FA7803 /* SQLTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLTable.swift; sourceTree = "<group>"; };
 		F9146B7428C1F16B00FA7803 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		F92952052963F8C400650E07 /* searchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchTableViewController.swift; sourceTree = "<group>"; };
+		F991F831295659B4004E2135 /* QuickBible.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickBible.entitlements; sourceTree = "<group>"; };
+		F991F83629565A5F004E2135 /* bibleIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = bibleIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F991F83829565A5F004E2135 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		F991F83B29565A5F004E2135 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		F991F83E29565A5F004E2135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		F991F84029565A5F004E2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F991F84829565A9E004E2135 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		F997895A2954418500A21680 /* HistoryVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVerse.swift; sourceTree = "<group>"; };
 		F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favoriteViewController.swift; sourceTree = "<group>"; };
 		F9B10EBD28F192A200490D15 /* BibleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleData.swift; sourceTree = "<group>"; };
@@ -77,6 +113,7 @@
 		F9DC46CA28E3F30C003C3316 /* contentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contentCollectionViewController.swift; sourceTree = "<group>"; };
 		F9DC46CC28E66F4E003C3316 /* sectionCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionCollectionReusableView.swift; sourceTree = "<group>"; };
 		F9DC46CE28E6C5E9003C3316 /* chapterContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chapterContentCollectionViewController.swift; sourceTree = "<group>"; };
+		F9F268ED295D19110068FE7E /* Intent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +138,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F991F83329565A5F004E2135 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F991F83929565A5F004E2135 /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		F9146B2E28C1EA1100FA7803 = {
 			isa = PBXGroup;
 			children = (
+				F9F268ED295D19110068FE7E /* Intent.swift */,
 				F9146B3928C1EA1100FA7803 /* QuickBible */,
 				F9146B5028C1EA1100FA7803 /* QuickBibleTests */,
 				F9146B5A28C1EA1100FA7803 /* QuickBibleUITests */,
+				F991F83A29565A5F004E2135 /* bibleIntent */,
+				F991F83729565A5F004E2135 /* Frameworks */,
 				F9146B3828C1EA1100FA7803 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,6 +168,7 @@
 				F9146B3728C1EA1100FA7803 /* QuickBible.app */,
 				F9146B4D28C1EA1100FA7803 /* QuickBibleTests.xctest */,
 				F9146B5728C1EA1100FA7803 /* QuickBibleUITests.xctest */,
+				F991F83629565A5F004E2135 /* bibleIntent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +176,8 @@
 		F9146B3928C1EA1100FA7803 /* QuickBible */ = {
 			isa = PBXGroup;
 			children = (
+				F991F831295659B4004E2135 /* QuickBible.entitlements */,
+				F991F84829565A9E004E2135 /* Intents.intentdefinition */,
 				F9146B6A28C1EFEF00FA7803 /* sqlite */,
 				F9C1A4FB28FCED32005FB54D /* data */,
 				F9A66EFB28FCEB56006918AC /* viewcontroller */,
@@ -169,9 +220,28 @@
 			path = sqlite;
 			sourceTree = "<group>";
 		};
+		F991F83729565A5F004E2135 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F991F83829565A5F004E2135 /* IntentsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F991F83A29565A5F004E2135 /* bibleIntent */ = {
+			isa = PBXGroup;
+			children = (
+				F991F83B29565A5F004E2135 /* IntentViewController.swift */,
+				F991F83D29565A5F004E2135 /* MainInterface.storyboard */,
+				F991F84029565A5F004E2135 /* Info.plist */,
+			);
+			path = bibleIntent;
+			sourceTree = "<group>";
+		};
 		F9A66EFB28FCEB56006918AC /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
+				F92952052963F8C400650E07 /* searchTableViewController.swift */,
 				F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */,
 				F909693C28D17A2700D8005C /* readTableViewController.swift */,
 				F9B492CB28D9ADE8003792A4 /* referenceTableViewController.swift */,
@@ -203,10 +273,12 @@
 				F9146B3328C1EA1100FA7803 /* Sources */,
 				F9146B3428C1EA1100FA7803 /* Frameworks */,
 				F9146B3528C1EA1100FA7803 /* Resources */,
+				F991F84729565A5F004E2135 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F991F84229565A5F004E2135 /* PBXTargetDependency */,
 			);
 			name = QuickBible;
 			productName = QuickBible;
@@ -249,6 +321,23 @@
 			productReference = F9146B5728C1EA1100FA7803 /* QuickBibleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		F991F83529565A5F004E2135 /* bibleIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F991F84429565A5F004E2135 /* Build configuration list for PBXNativeTarget "bibleIntent" */;
+			buildPhases = (
+				F991F83229565A5F004E2135 /* Sources */,
+				F991F83329565A5F004E2135 /* Frameworks */,
+				F991F83429565A5F004E2135 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bibleIntent;
+			productName = bibleIntent;
+			productReference = F991F83629565A5F004E2135 /* bibleIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -256,7 +345,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					F9146B3628C1EA1100FA7803 = {
@@ -269,6 +358,9 @@
 					F9146B5628C1EA1100FA7803 = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = F9146B3628C1EA1100FA7803;
+					};
+					F991F83529565A5F004E2135 = {
+						CreatedOnToolsVersion = 14.2;
 					};
 				};
 			};
@@ -288,6 +380,7 @@
 				F9146B3628C1EA1100FA7803 /* QuickBible */,
 				F9146B4C28C1EA1100FA7803 /* QuickBibleTests */,
 				F9146B5628C1EA1100FA7803 /* QuickBibleUITests */,
+				F991F83529565A5F004E2135 /* bibleIntent */,
 			);
 		};
 /* End PBXProject section */
@@ -318,6 +411,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F991F83429565A5F004E2135 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F991F83F29565A5F004E2135 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -327,6 +428,7 @@
 			files = (
 				F9146B7528C1F16B00FA7803 /* DataManager.swift in Sources */,
 				F909693D28D17A2700D8005C /* readTableViewController.swift in Sources */,
+				F991F84929565A9E004E2135 /* Intents.intentdefinition in Sources */,
 				F9146B7328C1F08400FA7803 /* SQLTable.swift in Sources */,
 				F9146B6E28C1F00300FA7803 /* SQLiteBase.swift in Sources */,
 				F997895B2954418500A21680 /* HistoryVerse.swift in Sources */,
@@ -336,11 +438,13 @@
 				F9146B3B28C1EA1100FA7803 /* AppDelegate.swift in Sources */,
 				F9B10EBC28F1917B00490D15 /* favoriteViewController.swift in Sources */,
 				F9DC46CF28E6C5E9003C3316 /* chapterContentCollectionViewController.swift in Sources */,
+				F92952062963F8C400650E07 /* searchTableViewController.swift in Sources */,
 				F9B10EBE28F192A200490D15 /* BibleData.swift in Sources */,
 				F9146B3D28C1EA1100FA7803 /* SceneDelegate.swift in Sources */,
 				F9B10EC028F8EC7300490D15 /* FavoriteVerse.swift in Sources */,
 				F9B492CC28D9ADE8003792A4 /* referenceTableViewController.swift in Sources */,
 				F9146B7128C1F06900FA7803 /* CloudDB.swift in Sources */,
+				F9F268EE295D19110068FE7E /* Intent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +465,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F991F83229565A5F004E2135 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F991F83C29565A5F004E2135 /* IntentViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -373,6 +485,11 @@
 			isa = PBXTargetDependency;
 			target = F9146B3628C1EA1100FA7803 /* QuickBible */;
 			targetProxy = F9146B5828C1EA1100FA7803 /* PBXContainerItemProxy */;
+		};
+		F991F84229565A5F004E2135 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F991F83529565A5F004E2135 /* bibleIntent */;
+			targetProxy = F991F84129565A5F004E2135 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -391,6 +508,14 @@
 				F9146B4628C1EA1100FA7803 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F991F83D29565A5F004E2135 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F991F83E29565A5F004E2135 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -513,8 +638,10 @@
 		F9146B6228C1EA1100FA7803 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = QuickBible/QuickBible.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6UGG2DPWC;
@@ -525,6 +652,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -541,8 +669,10 @@
 		F9146B6328C1EA1100FA7803 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = QuickBible/QuickBible.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6UGG2DPWC;
@@ -553,6 +683,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -642,6 +773,60 @@
 			};
 			name = Release;
 		};
+		F991F84529565A5F004E2135 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6UGG2DPWC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bibleIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = bibleIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickbible.QuickBible.bibleIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F991F84629565A5F004E2135 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6UGG2DPWC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bibleIntent/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = bibleIntent;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickbible.QuickBible.bibleIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -677,6 +862,15 @@
 			buildConfigurations = (
 				F9146B6828C1EA1100FA7803 /* Debug */,
 				F9146B6928C1EA1100FA7803 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F991F84429565A5F004E2135 /* Build configuration list for PBXNativeTarget "bibleIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F991F84529565A5F004E2135 /* Debug */,
+				F991F84629565A5F004E2135 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -101,7 +101,19 @@
                             <outlet property="delegate" destination="RP6-v7-zNq" id="k33-UI-BQC"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="Umc-D2-pP4"/>
+                    <navigationItem key="navigationItem" id="Umc-D2-pP4">
+                        <barButtonItem key="rightBarButtonItem" title="搜索" image="magnifyingglass" catalog="system" style="plain" id="OzW-Hj-i8J">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="m2E-08-uLB">
+                                <rect key="frame" x="288" y="5" width="86" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="搜索"/>
+                                <connections>
+                                    <segue destination="Kdx-dH-KP7" kind="show" id="i2f-mn-PU0"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="grs-4N-qEB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -225,6 +237,7 @@
                             <outlet property="delegate" destination="Z92-6k-kcm" id="V3r-rM-BqP"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="73h-JW-wc4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2s-ui-fHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -324,7 +337,57 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIp-ua-KzN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3471" y="-231"/>
+            <point key="canvasLocation" x="3605" y="-243"/>
+        </scene>
+        <!--Search Table View Controller-->
+        <scene sceneID="MD1-dD-2YM">
+            <objects>
+                <tableViewController id="Kdx-dH-KP7" customClass="searchTableViewController" customModule="QuickBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="dk4-8g-t7U">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchresult" rowHeight="91" id="h8M-BW-atb" customClass="searchResultCell" customModule="QuickBible" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="390" height="91"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h8M-BW-atb" id="aff-7p-qLY">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="91"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOq-8T-1DL">
+                                            <rect key="frame" x="20" y="11" width="350" height="69"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="69" id="2uE-pR-oZB"/>
+                                                <constraint firstAttribute="width" constant="350" id="au4-dr-pto"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="JOq-8T-1DL" firstAttribute="top" secondItem="aff-7p-qLY" secondAttribute="topMargin" id="LAF-gQ-dna"/>
+                                        <constraint firstAttribute="bottom" secondItem="JOq-8T-1DL" secondAttribute="bottom" constant="11" id="X9Z-oc-7xi"/>
+                                        <constraint firstItem="JOq-8T-1DL" firstAttribute="leading" secondItem="aff-7p-qLY" secondAttribute="leadingMargin" id="nQ6-0p-Y5R"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="searchResultLabel" destination="JOq-8T-1DL" id="vFQ-oQ-ms9"/>
+                                    <segue destination="Z92-6k-kcm" kind="show" id="LgI-VO-Vch"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Kdx-dH-KP7" id="Zdp-Dx-8ea"/>
+                            <outlet property="delegate" destination="Kdx-dH-KP7" id="E2A-Md-hK6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="5E9-Ys-2be"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xCG-M1-cd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2389.2307692307691" y="-577.25118483412325"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6aT-ta-P2B">
@@ -345,11 +408,11 @@
             </objects>
             <point key="canvasLocation" x="-114" y="532"/>
         </scene>
-        <!--Content-->
+        <!--读圣经-->
         <scene sceneID="F1b-BU-m3W">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bp7-XA-0bD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Content" image="book.fill" catalog="system" id="dDU-1m-s2l"/>
+                    <tabBarItem key="tabBarItem" title="读圣经" image="book.fill" catalog="system" id="dDU-1m-s2l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z2u-js-1JJ">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -364,11 +427,11 @@
             </objects>
             <point key="canvasLocation" x="895" y="104"/>
         </scene>
-        <!--Favorite-->
+        <!--收藏-->
         <scene sceneID="TyU-Px-wnH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="48P-cF-rSK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" image="star" catalog="system" id="Ivg-7I-RFQ"/>
+                    <tabBarItem key="tabBarItem" title="收藏" image="star" catalog="system" id="Ivg-7I-RFQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tbt-EM-3ey">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -384,8 +447,12 @@
             <point key="canvasLocation" x="894" y="852"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="IFk-rd-dgV"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="95"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

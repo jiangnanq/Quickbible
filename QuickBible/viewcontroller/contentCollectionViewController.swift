@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Intents
 
 class BooknameCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,8 +20,8 @@ class contentCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Content"
         setLayout()
+        self.title = "读圣经"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -31,6 +32,7 @@ class contentCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
     
+   
     func setLayout() {
        let screenSize = UIScreen.main.bounds
        let screenWidth = screenSize.width
