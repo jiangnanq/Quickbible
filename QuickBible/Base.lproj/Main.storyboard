@@ -368,6 +368,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="JOq-8T-1DL" firstAttribute="top" secondItem="aff-7p-qLY" secondAttribute="topMargin" id="LAF-gQ-dna"/>
+                                        <constraint firstAttribute="trailing" secondItem="JOq-8T-1DL" secondAttribute="trailing" constant="20" symbolic="YES" id="PRz-KP-SA6"/>
                                         <constraint firstAttribute="bottom" secondItem="JOq-8T-1DL" secondAttribute="bottom" constant="11" id="X9Z-oc-7xi"/>
                                         <constraint firstItem="JOq-8T-1DL" firstAttribute="leading" secondItem="aff-7p-qLY" secondAttribute="leadingMargin" id="nQ6-0p-Y5R"/>
                                     </constraints>
@@ -448,7 +449,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IFk-rd-dgV"/>
+        <segue reference="LgI-VO-Vch"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="95"/>

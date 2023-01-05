@@ -80,12 +80,21 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
         let shareAction = UIAlertAction(title: "分享", style: .default) { (_) -> Void in
             let item = [self.v[indexPath.row].titleAndtext]
             let ac = UIActivityViewController(activityItems: item, applicationActivities: nil)
+            ac.popoverPresentationController?.sourceView = self.view
+            ac.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0,
+                                                                           y: self.view.bounds.size.height / 2.0,
+                                                                           width: 1.0, height: 1.0)
+
             self.present(ac, animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alertcontroller.addAction(viewAction)
         alertcontroller.addAction(shareAction)
         alertcontroller.addAction(cancelAction)
+        alertcontroller.popoverPresentationController?.sourceView = self.view
+        alertcontroller.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.size.width / 2.0,
+                                                                           y: self.view.bounds.size.height / 2.0,
+                                                                           width: 1.0, height: 1.0)
         present(alertcontroller, animated: true)
     }
 }
