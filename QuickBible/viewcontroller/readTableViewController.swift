@@ -7,16 +7,30 @@
 
 import UIKit
 
+protocol verseCellDelegate: AnyObject  {
+    func likeButtonPressed(at indexPath: IndexPath)
+}
+
 class verseCell: UITableViewCell {
     @IBOutlet weak var verseLabel: UILabel!
     @IBOutlet weak var refNoLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
+    
+    weak var delegate: verseCellDelegate?
+    var indexPath: IndexPath?
+    
+    @IBAction func likebutton(_ sender: UIButton) {
+        if let indexPath = indexPath {
+            delegate?.likeButtonPressed(at: indexPath)
+        }
+    }
 }
 
 protocol readBibleDelegate {
     func chapterDidUpdate(verses: [Verse])
 }
 
-class readTableViewController: UITableViewController {
+class readTableViewController: UITableViewController, verseCellDelegate {
     let d = DataManager.shareInstance
     var chapter:[Verse] = [] {
         didSet {
@@ -46,6 +60,10 @@ class readTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
     
     @objc func updateVerse(notification: NSNotification) {
@@ -88,9 +106,19 @@ class readTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! verseCell
         let onet = chapter[indexPath.row]
         cell.verseLabel.text = onet.textWithNumber
-        cell.refNoLabel.text = onet.isFavorite() ? "❤️ \(onet.referenceNo)" : "\(onet.referenceNo)"
+        cell.refNoLabel.text = "\(onet.referenceNo)"
+        cell.likeButton.setTitle(onet.isFavorite() ? "❤️" : "🤍", for: .normal)
+        cell.delegate = self
+        cell.indexPath = indexPath
         // Configure the cell...
         return cell
+    }
+    
+    func likeButtonPressed(at indexPath: IndexPath) {
+        let onet = chapter[indexPath.row]
+        let f = FavoriteVerse.shareInstance
+        f.toggleFavorite(oneverse: onet)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -99,9 +127,6 @@ class readTableViewController: UITableViewController {
         vc.oneverser = oneverse
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
 
     
     /*

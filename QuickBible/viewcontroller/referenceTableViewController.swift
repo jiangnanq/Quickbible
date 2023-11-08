@@ -14,9 +14,9 @@ class referenceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         crossRef = [VerseRange(oneverse: oneverser!)] + oneverser!.cross_ref()
-        let title = oneverser!.isFavorite() ? "不收藏" : "收藏"
-        let barbutton = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(togglefavorite))
-        navigationItem.rightBarButtonItem = barbutton
+//        let title = oneverser!.isFavorite() ? "不收藏" : "收藏"
+//        let barbutton = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(togglefavorite))
+//        navigationItem.rightBarButtonItem = barbutton
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

@@ -25,7 +25,12 @@ class favoriteViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.verseTableView.reloadData()
+    }
+    
     @objc func updateview() {
+        print("update favorite view")
         v = FavoriteVerse.shareInstance.verseInRange()
         self.verseTableView.reloadData()
     }
