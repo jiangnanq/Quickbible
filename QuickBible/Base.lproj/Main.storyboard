@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -102,12 +103,13 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Umc-D2-pP4">
-                        <barButtonItem key="rightBarButtonItem" title="搜索" image="magnifyingglass" catalog="system" style="plain" id="OzW-Hj-i8J">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="OzW-Hj-i8J">
+                            <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="default"/>
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="m2E-08-uLB">
                                 <rect key="frame" x="288" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="搜索"/>
+                                <buttonConfiguration key="configuration" style="plain" title="🔎"/>
                                 <connections>
                                     <segue destination="Kdx-dH-KP7" kind="show" id="i2f-mn-PU0"/>
                                 </connections>
@@ -496,7 +498,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LgI-VO-Vch"/>
+        <segue reference="IFk-rd-dgV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="95"/>

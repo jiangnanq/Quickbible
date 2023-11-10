@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 let updateBibleView = Notification.Name("updateBibleview")
 let updateVerseView = Notification.Name("updateVerse")
@@ -16,11 +17,20 @@ let db = SQLiteDB.shared
 class DataManager {
     static let shareInstance = DataManager()
     var bible: Bible
+    var colors: [UIColor] = []
     
     init() {
         let path = Bundle.main.path(forResource: "bible_chn", ofType: "db")
         db.open(dbPath: path!, copyFile: true)
         bible = Bible()
+        for r: CGFloat in [0.2, 0.4, 0.6, 0.8, 1.0] {
+            for g: CGFloat in [0.6, 0.7, 0.8, 1.0] {
+                for b: CGFloat in [0.6, 0.7, 0.8, 1.0] {
+                    let color = UIColor(red: r, green: g, blue: b, alpha: 1)
+                    colors.append(color)
+                }
+            }
+        }
     }
     
     func randomVerse() -> Verse {

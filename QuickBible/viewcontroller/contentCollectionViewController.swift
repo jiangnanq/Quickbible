@@ -80,8 +80,10 @@ class contentCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BooknameCell
         let onebook = b.sections[indexPath.section][indexPath.row]
         cell.nameLabel.text = "\(onebook.Name)"
+        cell.nameLabel.backgroundColor = onebook.color
         let c = HistoryVerse.shareInstance.historyVerse[onebook.BookId - 1]
-        cell.historyLabel.text = "\(c) of \(onebook.allChapter)"
+        cell.historyLabel.text = onebook.favoriteCount == 0 ? "\(c)/\(onebook.allChapter)":"\(onebook.favoriteCount)❤️"
+        cell.backgroundColor = onebook.color
         // Configure the cell
         return cell
     }

@@ -69,6 +69,8 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
 //        let oneverse = Verse(rid: v.myVerses[indexPath.row])
         let onev = v[indexPath.row]
         cell.verseLabel.text = "\(onev.title()): \(onev.fullText())"
+        cell.verseLabel.backgroundColor = onev.color
+        cell.backgroundColor = onev.color
         return cell
     }
     

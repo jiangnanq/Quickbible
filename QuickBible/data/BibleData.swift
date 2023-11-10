@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 struct Book {
     var Name: String
     var BookId: Int
+    var color: UIColor {
+        DataManager.shareInstance.colors[BookId]
+    }
     
     var FirstChapter: [Verse] {
         get {
@@ -43,6 +47,14 @@ struct Book {
             let sql = "select count(distinct(c)) from t_chn where b=\(BookId)"
             let d = db.query(sql: sql).first!
             return db.query(sql: sql).first!["count(distinct(c))"] as! Int
+        }
+    }
+    
+    var favoriteCount: Int {
+        get {
+            FavoriteVerse.shareInstance.myVerses.map { b in
+                Int(b / 1000000)
+            }.filter { $0 == BookId}.count
         }
     }
     
@@ -108,6 +120,10 @@ struct Verse: Equatable {
     var Chapter: Int
     var Verse: Int
     var Text: String
+    var color: UIColor {
+        let d = DataManager.shareInstance
+        return d.colors[Book]
+    }
     var bookNameChn: String {
         let sql = "select FullName from BibleID where SN=\(Book)"
         let r = db.query(sql: sql).first!
@@ -174,6 +190,9 @@ struct Verse: Equatable {
 
 class VerseRange {
     var verses:[Verse] = []
+    var color: UIColor {
+        verses.first!.color
+    }
     var titleAndtext: String {
         get {
            title() + ": " + fullText()
