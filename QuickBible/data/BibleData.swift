@@ -141,6 +141,14 @@ struct Verse: Equatable {
         return db.query(sql: sql).first!["count(*)"] as! Int
     }
     
+    var Text_eng: String {
+        let sql = "select t from t_asv where b=\(Book) and c=\(Chapter) and v=\(Verse) limit 1"
+        if let t = db.query(sql: sql).first {
+            return t["t"] as! String
+        }
+        return ""
+    }
+    
     func cross_ref() -> [VerseRange] {
         let sql = "select sv,ev from cross_reference where vid=\(self.id) order by r desc"
         return db.query(sql: sql).map { oner in

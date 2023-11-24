@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 let updateBibleView = Notification.Name("updateBibleview")
 let updateVerseView = Notification.Name("updateVerse")
@@ -18,6 +20,10 @@ class DataManager {
     static let shareInstance = DataManager()
     var bible: Bible
     var colors: [UIColor] = []
+    var english: Bool = false
+    var player: AVQueuePlayer?
+    var playerItemsTitle: [String] = []
+    var currentPlayerItem: Int = 0
     
     init() {
         let path = Bundle.main.path(forResource: "bible_chn", ofType: "db")
@@ -31,6 +37,7 @@ class DataManager {
                 }
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemReachEnd( _ :)), name: .AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
     func randomVerse() -> Verse {
@@ -50,12 +57,18 @@ class DataManager {
     }
     
     func nextChapter(oneverse: Verse) -> [Verse] {
+        if oneverse.Book == 66 && oneverse.Chapter == 22 {
+            return currentChapter(oneverse: oneverse)
+        }
         let sql = "select * from t_chn where id>\(oneverse.id) order by id asc limit 1"
         let t = Verse(r: db.query(sql: sql).first!)
         return currentChapter(oneverse: Verse(r: db.query(sql: sql).first!))
     }
     
     func previousChapter(oneverse: Verse) -> [Verse] {
+        if oneverse.Book == 1 && oneverse.Chapter == 1 {
+            return currentChapter(oneverse: oneverse)
+        }
         let sql = "select * from t_chn where id<\(oneverse.id) order by id desc limit 1"
         return currentChapter(oneverse: Verse(r: db.query(sql: sql).first!))
     }
@@ -72,4 +85,71 @@ class DataManager {
             }
         }
     }
+        
+    func generatePlayList(oneverse: Verse) -> [URL]{
+        var playlist: [String] = []
+        self.playerItemsTitle = []
+        for i in 1...66 {
+            var sql = "select distinct(c), bi.FullName from t_chn t left join BibleID bi on t.b=bi.SN where b=\(i) order by c"
+            let r = db.query(sql: sql)
+            let r1 = r.map { "\(i)_\($0["c"] as! Int)"}
+            playlist += r1
+            let r2 = r.map {"\($0["FullName"] as! String) \($0["c"] as! Int)"}
+            self.playerItemsTitle += r2
+        }
+        let idx = playlist.firstIndex(of: "\(oneverse.Book)_\(oneverse.Chapter)")
+        var playlisturl:[URL] = Array(playlist[idx!...]).map{ URL(string:"https://carmelbible.sgp1.digitaloceanspaces.com/Bible/\($0).mp3")!}
+        self.playerItemsTitle = Array(self.playerItemsTitle[idx!...])
+        self.currentPlayerItem = 0
+        if playlisturl.count > 10 {
+            playlisturl = Array(playlisturl[0...9])
+        }
+        return playlisturl
+    }
+
+    func playChapter(chapter: [Verse]) {
+        let playlisturls = generatePlayList(oneverse: chapter.first!)
+        let playitems = playlisturls.map{AVPlayerItem(url: $0)}
+        self.player = AVQueuePlayer(items: playitems)
+        self.setupAudioSession()
+        self.setupRemoteTransportControl()
+        self.player!.play()
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: "\(self.playerItemsTitle[self.currentPlayerItem])"
+        ]
+    }
+    
+    func setupAudioSession() {
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }catch {
+            print("error when set player! \(error)" )
+        }
+    }
+    
+    func setupRemoteTransportControl() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.addTarget { event in
+            print("receive remote event.")
+            self.player!.play()
+            return .success
+        }
+        commandCenter.pauseCommand.addTarget { event in
+            print("receive pause command.")
+            self.player!.pause()
+            return .success
+        }
+    }
+
+    @objc func playerItemReachEnd(_ notification: Notification) {
+        print("update chapter title")
+        self.currentPlayerItem += 1
+        if self.currentPlayerItem < self.playerItemsTitle.count{
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                MPMediaItemPropertyTitle: "\(self.playerItemsTitle[self.currentPlayerItem])"
+            ]
+        }
+    }
+
 }

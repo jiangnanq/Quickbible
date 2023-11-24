@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVFoundation
+import MediaPlayer
 
 protocol verseCellDelegate: AnyObject  {
     func likeButtonPressed(at indexPath: IndexPath)
@@ -30,7 +32,8 @@ protocol readBibleDelegate {
     func chapterDidUpdate(verses: [Verse])
 }
 
-class readTableViewController: UITableViewController, verseCellDelegate {
+class readTableViewController: UITableViewController, verseCellDelegate{
+    var player: AVQueuePlayer?
     let d = DataManager.shareInstance
     var chapter:[Verse] = [] {
         didSet {
@@ -43,7 +46,7 @@ class readTableViewController: UITableViewController, verseCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "\(chapter.first!.bookNameChn) \(chapter.first!.Chapter)"
-        let barbutton = UIBarButtonItem(title: "目录", style: .plain, target: self, action: #selector(selectchapter))
+        let barbutton = UIBarButtonItem(title: "...", style: .plain, target: self, action: #selector(showPopupMenu))
         navigationItem.rightBarButtonItem = barbutton
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
         swipeLeft.direction = .left
@@ -62,9 +65,30 @@ class readTableViewController: UITableViewController, verseCellDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    @objc func showPopupMenu(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "目录", style: .default) { _ in
+            self.selectchapter()
+        }
+        let action2 = UIAlertAction(title: "中英对照", style: .default) { _ in
+            DataManager.shareInstance.english.toggle()
+            self.tableView.reloadData()
+        }
+        let action3 = UIAlertAction(title: "朗读", style: .default) { _ in
+            self.d.playChapter(chapter: self.chapter)
+        }
+        let action4 = UIAlertAction(title: "取消", style: .cancel)
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        alertController.addAction(action3)
+        alertController.addAction(action4)
+        present(alertController, animated: true, completion: nil)
+       }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
+    
     
     @objc func updateVerse(notification: NSNotification) {
         if let v = notification.userInfo?["verse"] as? Verse {
@@ -105,7 +129,8 @@ class readTableViewController: UITableViewController, verseCellDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! verseCell
         let onet = chapter[indexPath.row]
-        cell.verseLabel.text = onet.textWithNumber
+        let eng = DataManager.shareInstance.english
+        cell.verseLabel.text = eng ? "\(onet.textWithNumber) \n \(onet.Text_eng)" : "\(onet.textWithNumber)"
         cell.refNoLabel.text = "\(onet.referenceNo)"
         cell.likeButton.setTitle(onet.isFavorite() ? "❤️" : "🤍", for: .normal)
         cell.delegate = self

@@ -230,11 +230,11 @@
                                         <constraint firstItem="tgG-SR-aZF" firstAttribute="leading" secondItem="8AC-mE-OMd" secondAttribute="leadingMargin" id="SI0-yc-lSL"/>
                                         <constraint firstItem="tgG-SR-aZF" firstAttribute="trailing" secondItem="8AC-mE-OMd" secondAttribute="trailingMargin" id="VCp-YN-aqx"/>
                                         <constraint firstAttribute="bottom" secondItem="vae-Wx-0hA" secondAttribute="bottom" constant="4" id="WbU-O9-0oF"/>
-                                        <constraint firstItem="vae-Wx-0hA" firstAttribute="top" secondItem="8AC-mE-OMd" secondAttribute="topMargin" constant="68" id="ea9-B9-GhE"/>
                                         <constraint firstAttribute="bottom" secondItem="q2e-B4-VC0" secondAttribute="bottom" constant="3" id="jaQ-LV-9kp"/>
                                         <constraint firstItem="tgG-SR-aZF" firstAttribute="leading" secondItem="q2e-B4-VC0" secondAttribute="leading" id="n0d-OR-ZeK"/>
                                         <constraint firstAttribute="trailing" secondItem="tgG-SR-aZF" secondAttribute="trailing" constant="20" symbolic="YES" id="noE-dj-Raj"/>
                                         <constraint firstAttribute="trailing" secondItem="vae-Wx-0hA" secondAttribute="trailing" constant="7" id="pzZ-xn-Br7"/>
+                                        <constraint firstItem="vae-Wx-0hA" firstAttribute="top" secondItem="tgG-SR-aZF" secondAttribute="bottom" constant="-6" id="zFX-nt-tEY"/>
                                         <constraint firstItem="tgG-SR-aZF" firstAttribute="top" secondItem="8AC-mE-OMd" secondAttribute="top" constant="11" id="zL5-vR-iKx"/>
                                     </constraints>
                                 </tableViewCellContentView>
