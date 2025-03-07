@@ -14,17 +14,29 @@ class favoriteVerseCell: UITableViewCell {
 class favoriteViewController: UIViewController {
     @IBOutlet weak var verseTableView: UITableView!
     var v = FavoriteVerse.shareInstance.verseInRange()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的收藏"
         verseTableView.delegate = self
         verseTableView.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(updateview), name: updateFavoriteView, object: nil)
-
-        // Do any additional setup after loading the view.
+        
+        // Add observer for both updateFavoriteView and didSaveFavorite notifications
+        NotificationCenter.default.addObserver(self, 
+            selector: #selector(updateview), 
+            name: updateFavoriteView, 
+            object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(updateview),
+            name: NSNotification.Name("didSaveFavorite"),
+            object: nil)
     }
-    
+
+    deinit {
+        // Remove observers when view controller is deallocated
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         self.verseTableView.reloadData()
     }
@@ -32,12 +44,10 @@ class favoriteViewController: UIViewController {
     @objc func updateview() {
         print("update favorite view")
         v = FavoriteVerse.shareInstance.verseInRange()
-        self.verseTableView.reloadData()
+        DispatchQueue.main.async {
+            self.verseTableView.reloadData()
+        }
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        verseTableView.reloadData()
-//    }
     
     @IBAction func selectType() {
         print("Select segment")

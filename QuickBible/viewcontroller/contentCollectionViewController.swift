@@ -11,6 +11,28 @@ import Intents
 class BooknameCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var historyLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupCell()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    private func setupCell() {
+        // Optionally add a rounded background and glow
+        contentView.backgroundColor = nameLabel.backgroundColor ?? .systemTeal.withAlphaComponent(0.3)
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.systemTeal.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        contentView.layer.shadowRadius = 10
+        contentView.layer.shadowOpacity = 0.8
+        
+        nameLabel.textAlignment = .center
+        historyLabel.textAlignment = .center
+    }
 }
 
 private let reuseIdentifier = "bookname"
@@ -114,15 +136,15 @@ class contentCollectionViewController: UICollectionViewController {
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         return false
     }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+    override func collectionView(_ collectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return false
     }
 
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    override func collectionView(_ collectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
     */

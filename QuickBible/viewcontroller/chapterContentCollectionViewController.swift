@@ -11,6 +11,28 @@ private let reuseIdentifier = "chapter"
 
 class chapterTitleCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupCell()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    private func setupCell() {
+        contentView.backgroundColor = .systemYellow.withAlphaComponent(0.3)
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.systemYellow.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        contentView.layer.shadowRadius = 12
+        contentView.layer.shadowOpacity = 0.9
+        
+        titleLabel.textAlignment = .center
+        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        titleLabel.textColor = .systemOrange
+    }
 }
 
 class chapterContentCollectionViewController: UICollectionViewController {
@@ -86,29 +108,29 @@ class chapterContentCollectionViewController: UICollectionViewController {
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     */
 
     /*
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     */
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldShowMenuForItemAt indexPath: Bool {
         return false
     }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+    override func collectionView(_ collectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return false
     }
 
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    override func collectionView(_ collectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
     */
