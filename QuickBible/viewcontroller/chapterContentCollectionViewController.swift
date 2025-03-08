@@ -19,19 +19,54 @@ class chapterTitleCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        // Update gradient and spine layers when layout changes
+        if let gradientLayer = contentView.layer.sublayers?.first as? CAGradientLayer {
+            gradientLayer.frame = contentView.bounds
+        }
+        if let spineLayer = contentView.layer.sublayers?.last {
+            spineLayer.frame = CGRect(x: 0, y: 0, width: 4, height: contentView.bounds.height)
+        }
     }
     
     private func setupCell() {
-        contentView.backgroundColor = .systemYellow.withAlphaComponent(0.3)
-        contentView.layer.cornerRadius = 12
-        contentView.layer.shadowColor = UIColor.systemYellow.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        contentView.layer.shadowRadius = 12
-        contentView.layer.shadowOpacity = 0.9
+        // Base setup
+        let baseColor = UIColor.systemBrown.withAlphaComponent(0.8)
+        contentView.backgroundColor = baseColor
+        contentView.layer.cornerRadius = 6
         
+        // Spine effect
+        let spineLayer = CALayer()
+        spineLayer.frame = CGRect(x: 0, y: 0, width: 4, height: contentView.bounds.height)
+        spineLayer.backgroundColor = UIColor.brown.darker(by: 40)?.cgColor
+        contentView.layer.addSublayer(spineLayer)
+        
+        // Shadow
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        contentView.layer.shadowRadius = 2
+        contentView.layer.shadowOpacity = 0.2
+        
+        // Gradient for leather-like texture
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = contentView.bounds
+        gradientLayer.colors = [
+            UIColor.white.withAlphaComponent(0.15).cgColor,
+            UIColor.clear.cgColor,
+            UIColor.black.withAlphaComponent(0.1).cgColor
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        contentView.layer.insertSublayer(gradientLayer, at: 0)
+        
+        // Text styling
         titleLabel.textAlignment = .center
-        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
-        titleLabel.textColor = .systemOrange
+        titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        titleLabel.textColor = .white
+        
+        // Border
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
     }
 }
 
@@ -53,16 +88,18 @@ class chapterContentCollectionViewController: UICollectionViewController {
     }
     
     func setLayout() {
-       let screenSize = UIScreen.main.bounds
-       let screenWidth = screenSize.width
-       let screenHeight = screenSize.height
-       let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-       layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-       layout.sectionHeadersPinToVisibleBounds = true
-       layout.itemSize = CGSize(width: screenWidth/8, height: screenHeight/12)
-       layout.minimumInteritemSpacing = 0
-       layout.minimumLineSpacing = 5
-       collectionView.collectionViewLayout = layout
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let itemWidth = (screenWidth - 50) / 4 // 4 items per row
+        let itemHeight = itemWidth * 1.2 // Slightly taller than wide
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 12
+        collectionView.collectionViewLayout = layout
     }
 
     /*
@@ -91,9 +128,6 @@ class chapterContentCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! chapterTitleCell
         cell.titleLabel.text = "\(String(indexPath.row + 1))"
-        cell.titleLabel.layer.cornerRadius = cell.titleLabel.frame.size.height / 2.0
-        cell.titleLabel.layer.masksToBounds = true
-        // Configure the cell
         return cell
     }
     
@@ -108,14 +142,14 @@ class chapterContentCollectionViewController: UICollectionViewController {
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldHighlightItemAt indexPath: Bool {
         return true
     }
     */
 
     /*
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldSelectItemAt indexPath: Bool {
         return true
     }
     */
@@ -126,11 +160,11 @@ class chapterContentCollectionViewController: UICollectionViewController {
         return false
     }
 
-    override func collectionView(_ collectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+    override func collectionView(_ collectionView, canPerformAction action: Selector, forItemAt indexPath: Bool, withSender sender: Any?) -> Bool {
         return false
     }
 
-    override func collectionView(_ collectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    override func collectionView(_ collectionView, performAction action: Selector, forItemAt indexPath: Bool, withSender sender: Any?) {
     
     }
     */

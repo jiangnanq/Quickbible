@@ -9,6 +9,30 @@ import UIKit
 
 class favoriteVerseCell: UITableViewCell {
     @IBOutlet weak var verseLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // Configure label
+        verseLabel.numberOfLines = 0
+        verseLabel.font = .systemFont(ofSize: 16)
+        verseLabel.lineBreakMode = .byWordWrapping
+        
+        // Setup constraints
+        verseLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+        
+        NSLayoutConstraint.activate([
+            verseLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            verseLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            verseLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            verseLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+        ])
+        
+        // Cell styling
+        contentView.layer.cornerRadius = 8
+        contentView.clipsToBounds = true
+    }
 }
 
 class favoriteViewController: UIViewController {
@@ -20,6 +44,13 @@ class favoriteViewController: UIViewController {
         self.title = "我的收藏"
         verseTableView.delegate = self
         verseTableView.dataSource = self
+        
+        // Configure table view for automatic sizing
+        verseTableView.rowHeight = UITableView.automaticDimension
+        verseTableView.estimatedRowHeight = 150 // Increased estimated height
+        verseTableView.separatorStyle = .none
+        verseTableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        verseTableView.cellLayoutMarginsFollowReadableWidth = true
         
         // Add observer for both updateFavoriteView and didSaveFavorite notifications
         NotificationCenter.default.addObserver(self, 
@@ -76,11 +107,14 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! favoriteVerseCell
-//        let oneverse = Verse(rid: v.myVerses[indexPath.row])
         let onev = v[indexPath.row]
+        
+        // Configure cell
         cell.verseLabel.text = "\(onev.title()): \(onev.fullText())"
-        cell.verseLabel.backgroundColor = onev.color
-        cell.backgroundColor = onev.color
+        cell.backgroundColor = .clear
+        cell.contentView.backgroundColor = onev.color.withAlphaComponent(0.3)
+        cell.selectionStyle = .none
+        
         return cell
     }
     
@@ -113,5 +147,39 @@ extension favoriteViewController: UITableViewDataSource, UITableViewDelegate {
                                                                            y: self.view.bounds.size.height / 2.0,
                                                                            width: 1.0, height: 1.0)
         present(alertcontroller, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+
+    // Add cell spacing
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let verticalPadding: CGFloat = 10
+        
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = 8
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x,
+                               y: cell.bounds.origin.y,
+                               width: cell.bounds.width,
+                               height: cell.bounds.height).insetBy(dx: 8, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
     }
 }

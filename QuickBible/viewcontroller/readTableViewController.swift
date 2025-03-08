@@ -14,14 +14,117 @@ protocol verseCellDelegate: AnyObject  {
 }
 
 class verseCell: UITableViewCell {
-    @IBOutlet weak var verseLabel: UILabel!
-    @IBOutlet weak var refNoLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
+    let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let numberView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBlue.withAlphaComponent(0.1)
+        view.layer.cornerRadius = 6
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let refNoLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .systemBlue
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let contentStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    let verseLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let likeButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let bottomStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     
     weak var delegate: verseCellDelegate?
     var indexPath: IndexPath?
     
-    @IBAction func likebutton(_ sender: UIButton) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupUI()
+    }
+    
+    private func setupUI() {
+        selectionStyle = .none
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        
+        contentView.addSubview(containerView)
+        containerView.addSubview(verseLabel)
+        containerView.addSubview(bottomStack)
+        
+        bottomStack.addArrangedSubview(numberView)
+        numberView.addSubview(refNoLabel)
+        bottomStack.addArrangedSubview(likeButton)
+        
+        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            
+            verseLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            verseLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            verseLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            verseLabel.bottomAnchor.constraint(equalTo: bottomStack.topAnchor, constant: -8),
+            
+            bottomStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            bottomStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
+            
+            numberView.widthAnchor.constraint(equalToConstant: 30),
+            numberView.heightAnchor.constraint(equalToConstant: 24),
+            
+            refNoLabel.centerXAnchor.constraint(equalTo: numberView.centerXAnchor),
+            refNoLabel.centerYAnchor.constraint(equalTo: numberView.centerYAnchor),
+            
+            likeButton.widthAnchor.constraint(equalToConstant: 24),
+            likeButton.heightAnchor.constraint(equalToConstant: 24)
+        ])
+    }
+    
+    @objc private func likeButtonTapped() {
         if let indexPath = indexPath {
             delegate?.likeButtonPressed(at: indexPath)
         }
@@ -48,6 +151,10 @@ class readTableViewController: UITableViewController, verseCellDelegate{
         title = "\(chapter.first!.bookNameChn) \(chapter.first!.Chapter)"
         let barbutton = UIBarButtonItem(title: "...", style: .plain, target: self, action: #selector(showPopupMenu))
         navigationItem.rightBarButtonItem = barbutton
+        
+        // Register cell class programmatically
+        tableView.register(verseCell.self, forCellReuseIdentifier: "verse")
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
@@ -57,6 +164,8 @@ class readTableViewController: UITableViewController, verseCellDelegate{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 600
         NotificationCenter.default.addObserver(self, selector: #selector(updateVerse), name: updateVerseView, object: nil)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .systemBackground
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -128,14 +237,15 @@ class readTableViewController: UITableViewController, verseCellDelegate{
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "verse", for: indexPath) as! verseCell
-        let onet = chapter[indexPath.row]
+        let verse = chapter[indexPath.row]
         let eng = DataManager.shareInstance.english
-        cell.verseLabel.text = eng ? "\(onet.textWithNumber) \n \(onet.Text_eng)" : "\(onet.textWithNumber)"
-        cell.refNoLabel.text = "\(onet.referenceNo)"
-        cell.likeButton.setTitle(onet.isFavorite() ? "❤️" : "🤍", for: .normal)
+        
+        cell.verseLabel.text = eng ? "\(verse.textWithNumber)\n\(verse.Text_eng)" : verse.textWithNumber
+        cell.refNoLabel.text = "\(verse.referenceNo)"
+        cell.likeButton.setTitle(verse.isFavorite() ? "❤️" : "🤍", for: .normal)
         cell.delegate = self
         cell.indexPath = indexPath
-        // Configure the cell...
+        
         return cell
     }
     
@@ -146,11 +256,14 @@ class readTableViewController: UITableViewController, verseCellDelegate{
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let oneverse = chapter[tableView.indexPathForSelectedRow!.row]
-        let vc = segue.destination as! referenceTableViewController
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let oneverse = chapter[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "reference") as! referenceTableViewController
         vc.oneverser = oneverse
+        navigationController?.pushViewController(vc, animated: true)
     }
+}
     
 
     
@@ -164,7 +277,7 @@ class readTableViewController: UITableViewController, verseCellDelegate{
 
     /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -176,14 +289,14 @@ class readTableViewController: UITableViewController, verseCellDelegate{
 
     /*
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    override func tableView(_ tableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
     */
 
     /*
     // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
@@ -198,7 +311,6 @@ class readTableViewController: UITableViewController, verseCellDelegate{
         // Pass the selected object to the new view controller.
     }
     */
-}
 
 extension readTableViewController: readBibleDelegate {
     func chapterDidUpdate(verses: [Verse]) {

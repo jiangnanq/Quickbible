@@ -26,6 +26,7 @@
 		F9518B45296FE4B0001409D5 /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9518B44296FE4B0001409D5 /* searchViewController.swift */; };
 		F9518B47296FFEFB001409D5 /* Bookdict.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9518B46296FFEFB001409D5 /* Bookdict.swift */; };
 		F997895B2954418500A21680 /* HistoryVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F997895A2954418500A21680 /* HistoryVerse.swift */; };
+		F9A8908A2D7B0998003BFD38 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A890882D7B0998003BFD38 /* UIColor+Extensions.swift */; };
 		F9B10EBC28F1917B00490D15 /* favoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */; };
 		F9B10EBE28F192A200490D15 /* BibleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBD28F192A200490D15 /* BibleData.swift */; };
 		F9B10EC028F8EC7300490D15 /* FavoriteVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B10EBF28F8EC7300490D15 /* FavoriteVerse.swift */; };
@@ -94,6 +95,7 @@
 		F991F83E29565A5F004E2135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		F991F84029565A5F004E2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F997895A2954418500A21680 /* HistoryVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVerse.swift; sourceTree = "<group>"; };
+		F9A890882D7B0998003BFD38 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		F9B10EBB28F1917B00490D15 /* favoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favoriteViewController.swift; sourceTree = "<group>"; };
 		F9B10EBD28F192A200490D15 /* BibleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleData.swift; sourceTree = "<group>"; };
 		F9B10EBF28F8EC7300490D15 /* FavoriteVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerse.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				F9146B4328C1EA1100FA7803 /* Assets.xcassets */,
 				F9146B4528C1EA1100FA7803 /* LaunchScreen.storyboard */,
 				F9146B4828C1EA1100FA7803 /* Info.plist */,
+				F9A890892D7B0998003BFD38 /* Extensions */,
 			);
 			path = QuickBible;
 			sourceTree = "<group>";
@@ -227,6 +230,14 @@
 				F9DC46CC28E66F4E003C3316 /* sectionCollectionReusableView.swift */,
 			);
 			path = viewcontroller;
+			sourceTree = "<group>";
+		};
+		F9A890892D7B0998003BFD38 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F9A890882D7B0998003BFD38 /* UIColor+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F9C1A4FB28FCED32005FB54D /* data */ = {
@@ -385,6 +396,7 @@
 				F9146B3B28C1EA1100FA7803 /* AppDelegate.swift in Sources */,
 				F9B10EBC28F1917B00490D15 /* favoriteViewController.swift in Sources */,
 				F9DC46CF28E6C5E9003C3316 /* chapterContentCollectionViewController.swift in Sources */,
+				F9A8908A2D7B0998003BFD38 /* UIColor+Extensions.swift in Sources */,
 				F92952062963F8C400650E07 /* searchTableViewController.swift in Sources */,
 				F9B10EBE28F192A200490D15 /* BibleData.swift in Sources */,
 				F9146B3D28C1EA1100FA7803 /* SceneDelegate.swift in Sources */,

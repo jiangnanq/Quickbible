@@ -19,19 +19,59 @@ class BooknameCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        // Update gradient and spine layers when layout changes
+        if let gradientLayer = contentView.layer.sublayers?.first as? CAGradientLayer {
+            gradientLayer.frame = contentView.bounds
+        }
+        if let spineLayer = contentView.layer.sublayers?.last {
+            spineLayer.frame = CGRect(x: 0, y: 0, width: 8, height: contentView.bounds.height)
+        }
     }
     
     private func setupCell() {
-        // Optionally add a rounded background and glow
-        contentView.backgroundColor = nameLabel.backgroundColor ?? .systemTeal.withAlphaComponent(0.3)
-        contentView.layer.cornerRadius = 12
-        contentView.layer.shadowColor = UIColor.systemTeal.cgColor
-        contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        contentView.layer.shadowRadius = 10
-        contentView.layer.shadowOpacity = 0.8
+        // Base color adjustments
+        let baseColor = nameLabel.backgroundColor?.withAlphaComponent(0.85) ?? .systemBrown.withAlphaComponent(0.85)
+        contentView.backgroundColor = baseColor
+        contentView.layer.cornerRadius = 6
         
+        // Enhanced spine effect
+        let spineLayer = CALayer()
+        spineLayer.frame = CGRect(x: 0, y: 0, width: 8, height: contentView.bounds.height)
+        spineLayer.backgroundColor = baseColor.darker(by: 40)?.cgColor
+        contentView.layer.addSublayer(spineLayer)
+        
+        // Refined shadow for elegant depth
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        contentView.layer.shadowRadius = 3
+        contentView.layer.shadowOpacity = 0.25
+        
+        // Sophisticated gradient
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = contentView.bounds
+        gradientLayer.colors = [
+            UIColor.white.withAlphaComponent(0.15).cgColor,
+            UIColor.clear.cgColor,
+            UIColor.black.withAlphaComponent(0.1).cgColor
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        contentView.layer.insertSublayer(gradientLayer, at: 0)
+        
+        // Text styling
         nameLabel.textAlignment = .center
+        nameLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+        nameLabel.backgroundColor = .clear
+        nameLabel.textColor = .white
+        
         historyLabel.textAlignment = .center
+        historyLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        historyLabel.textColor = .white.withAlphaComponent(0.9)
+        
+        // Add subtle border
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
     }
 }
 
@@ -56,16 +96,18 @@ class contentCollectionViewController: UICollectionViewController {
     
    
     func setLayout() {
-       let screenSize = UIScreen.main.bounds
-       let screenWidth = screenSize.width
-       let screenHeight = screenSize.height
-       let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-       layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-       layout.sectionHeadersPinToVisibleBounds = true
-       layout.itemSize = CGSize(width: screenWidth/4, height: screenHeight/8)
-       layout.minimumInteritemSpacing = 0
-       layout.minimumLineSpacing = 5
-       collectionView.collectionViewLayout = layout
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let itemWidth = (screenWidth - 40) / 3 // 3 items per row with margins
+        let itemHeight = itemWidth * 1.3 // Golden ratio-ish
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 15
+        collectionView.collectionViewLayout = layout
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,11 +144,15 @@ class contentCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BooknameCell
         let onebook = b.sections[indexPath.section][indexPath.row]
         cell.nameLabel.text = "\(onebook.Name)"
-        cell.nameLabel.backgroundColor = onebook.color
+        
+        // Adjust the color to be more formal
+        let formalColor = onebook.color.withAlphaComponent(0.85)
+        cell.nameLabel.backgroundColor = .clear
+        cell.contentView.backgroundColor = formalColor
+        cell.backgroundColor = .clear
+        
         let c = HistoryVerse.shareInstance.historyVerse[onebook.BookId - 1]
         cell.historyLabel.text = onebook.favoriteCount == 0 ? "\(c)/\(onebook.allChapter)":"\(onebook.favoriteCount)❤️"
-        cell.backgroundColor = onebook.color
-        // Configure the cell
         return cell
     }
     
@@ -122,14 +168,14 @@ class contentCollectionViewController: UICollectionViewController {
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     */
 
     /*
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    override func collectionView(_ collectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     */
